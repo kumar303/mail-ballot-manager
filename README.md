@@ -135,3 +135,35 @@ Running the Python backend and React front-end with auto-reload:
 ```
 ./run-dev.sh
 ```
+
+## Developer Setup on Mac with a Linux VM
+
+1.  Install Parallels.
+
+        brew cask install parallels
+
+2.  Download Ubuntu Desktop `.iso` image file: [ubuntu-18.04.4-desktop-amd64.iso](https://releases.ubuntu.com/18.04.4/ubuntu-18.04.4-desktop-amd64.iso)
+3.  Create Parallels VM using the Ubuntu iso image file.
+4.  Copy ssh public key `~/.ssh/id_rsa.pub` to VM `~/.ssh/authorized_keys`.
+5.  `git checkout` the project.
+6.  Follow steps above for "Running in Development"
+
+### Setup SSH Host Shortcut
+
+Set up ssh host shortcut such that you can type `ssh vx` to connect to VM:
+
+1.  Open Settings in the VM (click the caret in the top right to reveal menu to click button to open "Settings")
+2.  Open Network in sidebar.
+3.  Click the gear next to the "Connected" in the "Wired" section.
+4.  Copy the IP address. Eg. `10.211.55.3`
+5.  Back on dev machine, create/open the file `~/.ssh/config` and add:
+
+        Host vx
+          HostName 10.211.55.3
+
+6.  Confirm this works by typing `ssh vx` to ssh into the VM.
+
+### Troubleshooting
+
+- Error message: `Error: ENOSPC: System limit for number of file watchers reached`
+  - Solution: [Increase the amount of watchers](https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers#the-technical-details)
